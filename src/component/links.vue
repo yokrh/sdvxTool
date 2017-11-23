@@ -24,7 +24,8 @@
 
 <style scoped>
 .links {
-  padding: 4px 2%;
+  padding: 20px 4%;
+  min-height: inherit;
   .title {
     text-align: center;
     padding: 8px 0 16px 0;

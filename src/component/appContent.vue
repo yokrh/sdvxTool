@@ -32,6 +32,6 @@ export default{
 
 <style scoped>
   .app-content {
-    padding: 16px 2%;
+    min-height: 600px;
   }
 </style>
