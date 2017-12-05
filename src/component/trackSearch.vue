@@ -105,7 +105,8 @@ export default{
 
 <style scoped>
 .track-search {
-  padding: 4px 2%;
+  padding: 20px 4%;
+  min-height: inherit;
   .page-title {
     text-align: center;
     padding: 8px 0 16px 0;;

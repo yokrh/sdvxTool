@@ -23,11 +23,13 @@
     "postcss-assets": "^5.0.0",
     "postcss-loader": "^2.0.6",
     "postcss-nested": "^2.1.2",
+    "uglifyjs-webpack-plugin": "^1.1.2",
     "vue-loader": "^13.3.0",
     "vue-template-compiler": "^2.5.2",
     "webpack": "^3.8.1"
   },
   "dependencies": {
-    "vue": "^2.5.2"
+    "vue": "^2.5.2",
+    "vue-router": "^3.0.1"
   }
 }
