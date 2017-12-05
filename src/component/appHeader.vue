@@ -1,29 +1,24 @@
 <template>
   <nav class="app-header">
     <ul class="tabs">
-      <li class="tab" @click="emitChangeAppContentType('trackSearch')">
-        <span class="icon-search"></span>Search
+      <li class="tab">
+        <router-link to="/">
+          <span class="icon-search"></span>Search
+        </router-link>
       </li>
-      <li class="tab" @click="emitChangeAppContentType('weekly')">
-        <span class="icon-weekly"></span>Weekly
+      <li class="tab">
+        <router-link to="/weekly">
+          <span class="icon-weekly"></span>Weekly
+        </router-link>
       </li>
-      <li class="tab" @click="emitChangeAppContentType('links')">
-        <span class="icon-link"></span>Links
+      <li class="tab">
+        <router-link to="/links">
+          <span class="icon-link"></span>Links
+          </router-link>
       </li>
     </ul>
   </nav>
 </template>
-
-<script>
-import vm from '../app';
-export default{
-  methods: {
-    emitChangeAppContentType(newAppContentType){
-      this.$emit('change-app-content-type', newAppContentType);
-    }
-  }
-};
-</script>
 
 <style scoped>
 .app-header {
