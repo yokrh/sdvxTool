@@ -7,6 +7,8 @@ const htmlWebpackPlugin = new HTMLWebpackPlugin({
   filename: 'index.html',
   inject: 'body'
 });
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const uglifyJsPlugin = new UglifyJsPlugin();
 
 module.exports = {
   entry: {
@@ -64,6 +66,7 @@ module.exports = {
   plugins: [
     extractTextPlugin,
     htmlWebpackPlugin,
+    uglifyJsPlugin,
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: '"production"'
