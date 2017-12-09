@@ -2,7 +2,7 @@
   <dl class="weekly">
     <dt class="title">今週の曲 ♫</dt>
     <dd class="track" v-for="track in tracks">
-      <a :href="'http://www.sdvx.in' + track.path + '.htm'">
+      <a :href="'http://www.sdvx.in' + track.path + '.htm'" target="_blank">
         <div class="track-image-container">
           <img :src="'http://www.sdvx.in/' + track.ver + '/jacket/'+ track.id + '.jpg'" alt=""/>
         </div>
