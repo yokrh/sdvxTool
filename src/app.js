@@ -3,6 +3,7 @@ import './image/icon-search.png';
 import './image/icon-link.png';
 import './image/icon-twitter.png';
 import './image/icon-weekly.png';
+import './image/icon-quiz.png';
 
 import Vue from 'Vue'
 import VueRouter from 'vue-router'
@@ -22,6 +23,7 @@ Vue.use(ElementUI, {locale});
 const routes = [
   { path: '/', component: trackSearch },
   { path: '/weekly', component: weekly },
+  { path: '/quiz', component: weekly },
   { path: '/links', component: links }
 ];
 const router = new VueRouter({
