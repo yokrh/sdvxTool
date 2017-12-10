@@ -28,6 +28,14 @@
   </nav>
 </template>
 
+<script>
+import Vue from 'Vue'
+import {Menu, Submenu, MenuItem} from 'element-ui'
+Vue.use(Menu);
+Vue.use(Submenu);
+Vue.use(MenuItem);
+</script>
+
 <style scoped>
 .app-header {
   margin-bottom: 1px;
