@@ -15,6 +15,7 @@ import appHeader from './component/appHeader.vue'
 import appContent from './component/appContent.vue'
 import trackSearch from './component/trackSearch.vue'
 import weekly from './component/weekly.vue'
+import quiz from './component/quiz.vue'
 import links from './component/links.vue'
 
 locale.use(lang);
@@ -23,7 +24,7 @@ Vue.use(VueRouter);
 const routes = [
   { path: '/', component: trackSearch },
   { path: '/weekly', component: weekly },
-  { path: '/quiz', component: weekly },
+  { path: '/quiz', component: quiz },
   { path: '/links', component: links }
 ];
 const router = new VueRouter({
