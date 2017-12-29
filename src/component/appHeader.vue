@@ -14,9 +14,9 @@
       <el-submenu index="3">
         <template slot="title">Others</template>
         <el-menu-item index="3-1">
-            <router-link to="/quiz">
-              <span class="icon-quiz"></span>Quiz
-            </router-link>
+          <router-link to="/quiz">
+            <span class="icon-quiz"></span>Quiz
+          </router-link>
         </el-menu-item>
         <el-menu-item index="3-2">
           <router-link to="/links">
