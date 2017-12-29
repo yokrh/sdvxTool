@@ -27,8 +27,7 @@ const routes = [
   { path: '/links', component: links }
 ];
 const router = new VueRouter({
-  routes,
-  mode: 'history'
+  routes
 });
 router.replace('/');
 
