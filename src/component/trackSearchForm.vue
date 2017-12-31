@@ -19,12 +19,12 @@
     <ul class="tracks">
       <template v-if="tracks.length > 0">
         <li class="track" v-for="track in tracks.slice(0, 10)">
-          <a :href="'http://www.sdvx.in' + track.path + '.htm'">{{track.name + '[' + track.difficulty + ']'}}</a>
+          <a :href="'http://www.sdvx.in' + track.path + '.htm'" target="_blank">{{track.name + ' [' + track.difficulty + ']'}}</a>
         </li>
       </template>
       <template v-else-if="selectedLevel">
         <li class="track">
-          <a :href="'http://www.sdvx.in/sort/sort_' + selectedLevel + '.htm'">Level {{selectedLevel}} トップ</a>
+          <a :href="'http://www.sdvx.in/sort/sort_' + selectedLevel + '.htm'" target="_blank">Level {{selectedLevel}} トップ</a>
         </li>
       </template>
     </ul>
@@ -81,8 +81,8 @@ export default {
     }
     .track-name-input {
       margin-top: 16px;
-      padding: 4px 2%;
-      width: 96%;
+      padding: 4px 3%;
+      width: 94%;
       height: 40px;
       line-height: 40px;
       font-size: 16px;
