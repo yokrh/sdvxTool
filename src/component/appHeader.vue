@@ -30,7 +30,9 @@
 
 <script>
 import Vue from 'Vue'
-import {Menu, Submenu, MenuItem} from 'element-ui'
+import Menu from '../../node_modules/element-ui/lib/menu'
+import Submenu from '../../node_modules/element-ui/lib/submenu'
+import MenuItem from '../../node_modules/element-ui/lib/menu-item'
 Vue.use(Menu);
 Vue.use(Submenu);
 Vue.use(MenuItem);
