@@ -20,6 +20,9 @@ module.exports = {
     path: __dirname + '/dist',
     filename: 'js/[name].bundle.js'
   },
+  externals: {
+    'aws-sdk': 'AWS'
+  },  
   module: {
     loaders: [
       {
