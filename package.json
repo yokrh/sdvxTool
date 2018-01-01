@@ -4,7 +4,10 @@
   "description": "sdvxtool",
   "main": "index.js",
   "scripts": {
-    "build": "webpack"
+    "build": "webpack",
+    "analyze": "webpack --json | webpack-bundle-size-analyzer",
+    "start": "webpack-dev-server",
+    "devall": "rm -rf dist/ && webpack && cd ./bin/s3/dev/ && sh ./all.sh"
   },
   "author": "yoshitake-okada",
   "repository": "",
@@ -26,9 +29,12 @@
     "uglifyjs-webpack-plugin": "^1.1.2",
     "vue-loader": "^13.3.0",
     "vue-template-compiler": "^2.5.2",
-    "webpack": "^3.8.1"
+    "webpack": "^3.8.1",
+    "webpack-dev-server": "^2.9.7"
   },
   "dependencies": {
+    "aws-sdk": "^2.167.0",
+    "element-ui": "^2.0.7",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"
   }
