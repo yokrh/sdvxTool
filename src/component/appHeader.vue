@@ -105,7 +105,6 @@ Vue.use(MenuItem);
   }
   .el-submenu .el-menu .el-menu-item {
     width: 100%;
-    padding-right: 20%;
     margin: 0;
   }
 }
