@@ -1,6 +1,8 @@
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const extractTextPlugin = new ExtractTextPlugin('./css/[name].css');
+const extractTextPlugin = new ExtractTextPlugin({
+  filename: './css/app.bundle.css'
+});
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const htmlWebpackPlugin = new HTMLWebpackPlugin({
   template: __dirname + '/src/view/index.html',
@@ -12,12 +14,15 @@ const uglifyJsPlugin = new UglifyJsPlugin();
 
 module.exports = {
   entry: {
-    app: __dirname + '/src/app.js'
+    app: __dirname + '/src/app.js',
   },
   output: {
     path: __dirname + '/dist',
     filename: 'js/[name].bundle.js'
   },
+  externals: {
+    'aws-sdk': 'AWS'
+  },  
   module: {
     loaders: [
       {
@@ -60,8 +65,16 @@ module.exports = {
       {
         test: /\.(jpe?g|gif|png|svg)$/,
         loader: 'file-loader?name=img/[name].[ext]'
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf)$/,
+        loader: 'file-loader?publicPath=../&name=css/font/[name].[ext]' // for element-ui/lib/theme-chalk/index.css resolve font path
       }
     ]
+  },
+  devServer: {
+    host: '0.0.0.0',
+    port: 3000
   },
   plugins: [
     extractTextPlugin,
