@@ -12,12 +12,17 @@
       </ul>
     </dd>
     <dd class="upload">
-      <track-quiz-form class="quiz-form" v-model="quizAnswerUrl"></track-quiz-form>
-      <label class="quiz-image" for="quiz-image-input">＋ 画像を選択 {{quizImageName}}
-        <input id="quiz-image-input" type="file" accept="image/*" @change="setQuizImage" style="display:none;">
-      </label>
-      <img :src="previewImageSrc" alt="プレビューが表示されます" style="display:block; width:30%; padding:4px; font-size:10px; white-space:nowrap;"/>
-      <input class="btn-add-quiz" type="button" value="クイズを追加する" @click="addQuiz">
+      <div v-if="!isShowAddQuizForm" @click="showAddQuizForm">
+        <img src="img/icon-plus.png" style="width:80px; height:auto;" />
+      </div>
+      <div v-if="isShowAddQuizForm" style="padding:16px 4% 32px 4%; background-color:#faf0ff;">
+        <track-quiz-form v-model="quizAnswerUrl"></track-quiz-form>
+        <label class="quiz-image" for="quiz-image-input">＋ 画像を選択 {{quizImageName}}
+          <input id="quiz-image-input" type="file" accept="image/*" @change="setQuizImage" style="display:none;">
+        </label>
+        <img :src="previewImageSrc" alt="プレビューが表示されます" style="display:block; width:30%; padding:4px; font-size:10px; white-space:nowrap;"/>
+        <input class="btn-add-quiz" type="button" value="クイズを追加する" @click="addQuiz">
+      </div>
     </dd>
   </dl>
 </template>
@@ -34,6 +39,7 @@ export default {
   },
   data() {
     return {
+      isShowAddQuizForm: false,
       quizs: [],
       quizImage: null,
       quizAnswerUrl: '',
@@ -60,7 +66,6 @@ export default {
       credentials: new AWS.CognitoIdentityCredentials({IdentityPoolId: IDENTITY_POOL_ID})
     });
     this.s3 = new AWS.S3({params: {Bucket: BUCKET}});
-
     this.fetchQuizs();
   },
   methods: {
@@ -78,6 +83,11 @@ export default {
       reader.onload = function() {
         self.previewImageSrc = reader.result;
       }
+    },
+
+    // クイズ追加フォーム表示
+    showAddQuizForm() {
+      this.isShowAddQuizForm = true;
     },
 
     // クイズ追加

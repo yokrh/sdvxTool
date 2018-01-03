@@ -82,14 +82,14 @@ export default {
       height: 42px;
       line-height: 42px;
       font-size: 14px;
-      color: #888;
-      border: 1px solid #bebebe;
+      color: #666;
+      border: 1px solid #aaa;
       border-radius: 2px;
       box-sizing: border-box;
     }
   }
   .tracks {
-    padding-top: 16px;
+    padding-bottom: 16px;
     .track {
       padding: 8px 4%;
       font-size: 12px;
