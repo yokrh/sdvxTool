@@ -4,7 +4,7 @@
     <dd class="track" v-for="track in tracks">
       <a :href="'http://www.sdvx.in' + track.path + '.htm'" target="_blank">
         <div class="track-image-container">
-          <img :src="'http://www.sdvx.in/' + track.ver + '/jacket/'+ track.id + '.jpg'" alt=""/>
+          <img :src="'http://www.sdvx.in/' + track.ver + '/jacket/'+ track.id + '.png'" alt=""/>
         </div>
         {{track.name}}
       </a>
