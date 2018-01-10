@@ -4,9 +4,9 @@
     <dd class="list">
       <p style="color:#666;font-size:12px;">※ 画像をクリックすると答えに飛びます</p>
       <ul>
-        <li class="quiz" v-for="quiz in quizsOrderByTime">
+        <li class="quiz" v-for="quiz in quizsSorted" key="quiz.id">
           <a :href="quiz.answerUrl" target="_blank">
-            <img :src="quiz.imageSrc" alt="quiz.id" />
+            <img :src="quiz.imageSrc" :alt="quiz.id" />
           </a>
         </li>
       </ul>
@@ -40,6 +40,7 @@ export default {
   data() {
     return {
       isShowAddQuizForm: false,
+      quizsS3: [],
       quizs: [],
       quizImage: null,
       quizAnswerUrl: '',
@@ -52,7 +53,7 @@ export default {
     quizImageName() {
       return this.quizImage ? this.quizImage.name : '';
     },
-    quizsOrderByTime() {
+    quizsSorted() {
       return this.quizs.slice().reverse();
     }
   },
@@ -103,45 +104,48 @@ export default {
       }
 
       // 入力ファイルのデータ取得、S3アップロード、および、クイズリスト更新
+      // S3に画像バックアップをアップロード
+      const imageFile = this.quizImage;
+      const imageFileName = Date.now() + '_' + this.quizImage.name;
+      this.s3.putObject({
+        Key: imageFileName,
+        Body: imageFile,
+        ACL: 'public-read'
+      }, function(err, data) {
+        if (err) { alert('画像保存失敗 : ' + err); }
+      });
+
+      // S3に更新版クイズリストをアップロード
+      const id = imageFileName;
+      const imageSrc = 'https://s3-ap-northeast-1.amazonaws.com/sdvx-quiz/' + imageFileName;
+      const answerUrl = this.quizAnswerUrl;
+      this.quizsS3.push({
+        id,
+        imageSrc,
+        answerUrl
+      });
+      const jsonFile = JSON.stringify(this.quizsS3);
+      const jsonFileName = this.quizJsonFileName;
+      const jsonFileType = 'application/json';
+      this.s3.putObject({
+        Key: jsonFileName,
+        ContentType: jsonFileType,
+        Body: jsonFile,
+        ACL: 'public-read'
+      }, function(err, data){
+        if (err) { alert('クイズリスト更新失敗 : ' + err); }
+      });
+
+      // クイズリスト表示更新（一時的にbase64で追加し、即時反映）
       const self = this;
       const reader = new FileReader();
       reader.readAsDataURL(this.quizImage);
       reader.onload = function() {
-        const id = Date.now() + '_' + self.quizImage;
-        const imageSrc = reader.result;
-        const answerUrl = self.quizAnswerUrl;
-        const quiz = {
-          id,
-          imageSrc,
-          answerUrl
-        };
         // クイズリスト更新
-        self.quizs.push(quiz);
-
-        // S3に画像バックアップをアップロード
-        const imageFile = self.quizImage;
-        const imageFileName = id;
-        const imageFileType = imageFile.type;
-        self.s3.putObject({
-          Key: imageFileName,
-          ContentType: imageFileType,
-          Body: imageFile,
-          ACL: 'public-read'
-        }, function(err, data) {
-          if (err) { alert('画像保存失敗 : ' + err); }
-        });
-
-        // S3に更新版クイズリストをアップロード
-        const jsonFile = JSON.stringify(self.quizs);
-        const jsonFileName = self.quizJsonFileName;
-        const jsonFileType = 'application/json';
-        self.s3.putObject({
-          Key: jsonFileName,
-          ContentType: jsonFileType,
-          Body: jsonFile,
-          ACL: 'public-read'
-        }, function(err, data){
-          if (err) { alert('クイズリスト更新失敗 : ' + err); }
+        self.quizs.push({
+          id,
+          imageSrc: reader.result,
+          answerUrl
         });
 
         // 一時データを初期化
@@ -160,7 +164,8 @@ export default {
         if (err) { alert('クイズリスト取得失敗 : ' + err); }
         if (data) {
           const json = JSON.parse(data.Body.toString());
-          self.quizs = json;
+          self.quizsS3 = json;
+          self.quizs = json.slice();
         }
       });
     }
