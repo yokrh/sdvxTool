@@ -43,6 +43,10 @@ module.exports = {
         loader: 'babel-loader'
       },
       {
+        test: /favicon\.ico/,
+        loader: 'file-loader?name=[name].[ext]'
+      },
+      {
         test: /\.css$/,
         loaders: ExtractTextPlugin.extract({
           use: [
