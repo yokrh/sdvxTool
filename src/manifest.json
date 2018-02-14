@@ -1,0 +1,17 @@
+{
+  "name"              : "SDVX譜面検索",
+  "short_name"        : "SDVX譜面検索",
+  "description"       : "SOUND VOLTEX（サウンドボルテックス）の譜面を、難易度やレベルや曲名で検索できます。",
+  "start_url"         : "/",
+  "display"           : "standalone",
+  "orientation"       : "portrait",
+  "background_color"  : "#DEF",
+  "theme_color"       : "#DEF",
+  "icons": [
+		{
+      "src"           : "/img/icon-sdvx.png",
+      "sizes"         : "200x200",
+      "type"          : "image/png"
+    }
+	]
+}

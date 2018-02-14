@@ -1,4 +1,5 @@
 import './style/app.css';
+import './image/icon-sdvx.png';
 import './image/icon-search.png';
 import './image/icon-link.png';
 import './image/icon-twitter.png';
@@ -6,6 +7,8 @@ import './image/icon-weekly.png';
 import './image/icon-quiz.png';
 import './image/icon-plus.png';
 import './favicon.ico';
+import './serviceworker.js';  // must be placed in root
+import './manifest.json';
 
 import Vue from 'Vue'
 import VueRouter from 'vue-router'
