@@ -7,7 +7,8 @@
     "build": "rm -rf ./dist/ && webpack",
     "analyze": "webpack --json | webpack-bundle-size-analyzer",
     "start": "webpack-dev-server",
-    "devall": "rm -rf ./dist/ && webpack && cd ./bin/s3/dev/ && sh ./all.sh"
+    "devall": "rm -rf ./dist/ && webpack && cd ./bin/s3/dev/ && sh ./all.sh",
+    "produp": "cd ./bin/s3/prod && sh ./all.sh"
   },
   "author": "yoshitake-okada",
   "repository": "",
