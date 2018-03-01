@@ -1,22 +1,22 @@
 // configuration
-const version = '1.0.0';
+const version = '1.0.1';
 const CACHE = version + '::sdvxYokrhPWA';
 const installFilesEssential = [
   '/',
   '/manifest.json',
   '/css/app.bundle.css',
-  '/js/app.bundle.js',
-  '/data/15.json',
-  '/data/16.json',
-  '/data/17.json',
-  '/data/18.json',
-  '/data/19.json',
-  '/data/20.json'
+  '/js/app.bundle.js'
 ];
 const installFilesDesirable = [
   '/favicon.ico'
 ];
 const filesNotToCache = [
+  '/data/15.json',
+  '/data/16.json',
+  '/data/17.json',
+  '/data/18.json',
+  '/data/19.json',
+  '/data/20.json',
   '/data/weekly.json'
 ]
 
