@@ -2,7 +2,7 @@
   <dl class="track-quiz">
     <dt class="title">譜面クイズ</dt>
     <dd class="list">
-      <p style="color:#666;font-size:12px;">※ 画像をクリックすると答えに飛びます</p>
+      <p style="padding:8px; text-align:center; font-size:12px; color:#666;">※ 画像をクリックすると答えに飛びます</p>
       <ul>
         <li class="quiz" v-for="quiz in quizsSorted" key="quiz.id">
           <a :href="quiz.answerUrl" target="_blank">
@@ -184,7 +184,6 @@ export default {
     color: #555;
   }
   .list {
-    padding: 20px 0;
     .quiz {
       display: inline-block;
       vertical-align: top;
@@ -209,8 +208,8 @@ export default {
       box-sizing: border-box;
     }
     .btn-add-quiz {
-      padding: 16px;
-      margin-top: 20px;
+      padding: 12px 16px;
+      margin-top: 32px;
       font-size: 14px;
       color: #555;
       background-color: #ddddff;

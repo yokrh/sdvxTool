@@ -45,12 +45,16 @@ export default {
 
 <style scoped>
   .track-quiz-form {
-    .levels {
-      padding: 8px 2%;
+    .levels, .difficulties {
+      padding: 4px 2%;
       .title {
         padding: 8px 0;
         font-size: 12px;
+        font-weight: bold;
+        color: #555;
       }
+    }
+    .levels {
       .level {
         display: inline-block;
         padding-left: 8%;
@@ -61,11 +65,6 @@ export default {
       }
     }
     .difficulties {
-      padding: 4px 2%;
-      .title {
-        padding: 8px 0;
-        font-size: 12px;
-      }
       .difficulty {
         display: inline-block;
         padding-left: 3%;

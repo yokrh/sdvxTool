@@ -49,12 +49,18 @@ export default {
 
 <style scoped>
   .track-search-form {
-    .levels {
-      padding: 8px 2%;
+    .levels, .difficulties {
+      padding: 4px 2%;
+      background-color: #fcf8ff;
+      margin-bottom: 8px;
       .title {
-        padding: 8px 0;
+        padding: 8px 4px;
         font-size: 12px;
+        font-weight: bold;
+        color: #555;
       }
+    }
+    .levels {
       .level {
         display: inline-block;
         padding-left: 8%;
@@ -65,11 +71,6 @@ export default {
       }
     }
     .difficulties {
-      padding: 4px 2%;
-      .title {
-        padding: 8px 0;
-        font-size: 12px;
-      }
       .difficulty {
         display: inline-block;
         padding-left: 3%;
@@ -80,14 +81,14 @@ export default {
       }
     }
     .track-name-input {
-      margin-top: 16px;
+      margin-top: 8px;
       padding: 4px 3%;
       width: 94%;
       height: 40px;
       line-height: 40px;
       font-size: 16px;
-      border: 1px solid #bebebe;
-      border-radius: 2px;
+      border: none;
+      border-bottom: 1px solid #bebebe;
     }
   }
   .tracks {
