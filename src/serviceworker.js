@@ -1,5 +1,5 @@
 // configuration
-const version = '1.0.1';
+const version = '1.0.2';
 const CACHE = version + '::sdvxYokrhPWA';
 const installFilesEssential = [
   '/',
@@ -17,7 +17,8 @@ const filesNotToCache = [
   '/data/18.json',
   '/data/19.json',
   '/data/20.json',
-  '/data/weekly.json'
+  '/data/weekly.json',
+  '/data/quiz.json'
 ]
 
 // install static assets
