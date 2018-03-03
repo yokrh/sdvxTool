@@ -2,22 +2,27 @@
   <dl class="track-quiz">
     <dt class="title">譜面クイズ</dt>
     <dd class="list">
-      <p style="color:#666;font-size:12px;">※ 画像をクリックすると答えに飛びます</p>
+      <p style="padding:8px; text-align:center; font-size:12px; color:#666;">※ 画像をクリックすると答えに飛びます</p>
       <ul>
-        <li class="quiz" v-for="quiz in quizsOrderByTime">
+        <li class="quiz" v-for="quiz in quizsSorted" key="quiz.id">
           <a :href="quiz.answerUrl" target="_blank">
-            <img :src="quiz.imageSrc" alt="quiz.id" />
+            <img :src="quiz.imageSrc" :alt="quiz.id" />
           </a>
         </li>
       </ul>
     </dd>
     <dd class="upload">
-      <track-quiz-form class="quiz-form" v-model="quizAnswerUrl"></track-quiz-form>
-      <label class="quiz-image" for="quiz-image-input">＋ 画像を選択 {{quizImageName}}
-        <input id="quiz-image-input" type="file" accept="image/*" @change="setQuizImage" style="display:none;">
-      </label>
-      <img :src="previewImageSrc" alt="プレビューが表示されます" style="display:block; width:30%; padding:4px; font-size:10px; white-space:nowrap;"/>
-      <input class="btn-add-quiz" type="button" value="クイズを追加する" @click="addQuiz">
+      <div v-if="!isShowAddQuizForm" @click="showAddQuizForm">
+        <img src="img/icon-plus.png" style="width:80px; height:auto;" />
+      </div>
+      <div v-if="isShowAddQuizForm" style="padding:16px 4% 32px 4%; background-color:#faf0ff;">
+        <track-quiz-form v-model="quizAnswerUrl"></track-quiz-form>
+        <label class="quiz-image" for="quiz-image-input">＋ 画像を選択 {{quizImageName}}
+          <input id="quiz-image-input" type="file" accept="image/*" @change="setQuizImage" style="display:none;">
+        </label>
+        <img :src="previewImageSrc" alt="プレビューが表示されます" style="display:block; width:30%; padding:4px; font-size:10px; white-space:nowrap;"/>
+        <input class="btn-add-quiz" type="button" value="クイズを追加する" @click="addQuiz">
+      </div>
     </dd>
   </dl>
 </template>
@@ -34,6 +39,8 @@ export default {
   },
   data() {
     return {
+      isShowAddQuizForm: false,
+      quizsS3: [],
       quizs: [],
       quizImage: null,
       quizAnswerUrl: '',
@@ -46,7 +53,7 @@ export default {
     quizImageName() {
       return this.quizImage ? this.quizImage.name : '';
     },
-    quizsOrderByTime() {
+    quizsSorted() {
       return this.quizs.slice().reverse();
     }
   },
@@ -60,7 +67,6 @@ export default {
       credentials: new AWS.CognitoIdentityCredentials({IdentityPoolId: IDENTITY_POOL_ID})
     });
     this.s3 = new AWS.S3({params: {Bucket: BUCKET}});
-
     this.fetchQuizs();
   },
   methods: {
@@ -80,6 +86,11 @@ export default {
       }
     },
 
+    // クイズ追加フォーム表示
+    showAddQuizForm() {
+      this.isShowAddQuizForm = true;
+    },
+
     // クイズ追加
     addQuiz(e) {
       if (!this.quizImage || !this.quizAnswerUrl) {
@@ -93,45 +104,48 @@ export default {
       }
 
       // 入力ファイルのデータ取得、S3アップロード、および、クイズリスト更新
+      // S3に画像バックアップをアップロード
+      const imageFile = this.quizImage;
+      const imageFileName = Date.now() + '_' + this.quizImage.name;
+      this.s3.putObject({
+        Key: imageFileName,
+        Body: imageFile,
+        ACL: 'public-read'
+      }, function(err, data) {
+        if (err) { alert('画像保存失敗 : ' + err); }
+      });
+
+      // S3に更新版クイズリストをアップロード
+      const id = imageFileName;
+      const imageSrc = 'https://s3-ap-northeast-1.amazonaws.com/sdvx-quiz/' + imageFileName;
+      const answerUrl = this.quizAnswerUrl;
+      this.quizsS3.push({
+        id,
+        imageSrc,
+        answerUrl
+      });
+      const jsonFile = JSON.stringify(this.quizsS3);
+      const jsonFileName = this.quizJsonFileName;
+      const jsonFileType = 'application/json';
+      this.s3.putObject({
+        Key: jsonFileName,
+        ContentType: jsonFileType,
+        Body: jsonFile,
+        ACL: 'public-read'
+      }, function(err, data){
+        if (err) { alert('クイズリスト更新失敗 : ' + err); }
+      });
+
+      // クイズリスト表示更新（一時的にbase64で追加し、即時反映）
       const self = this;
       const reader = new FileReader();
       reader.readAsDataURL(this.quizImage);
       reader.onload = function() {
-        const id = Date.now() + '_' + self.quizImage;
-        const imageSrc = reader.result;
-        const answerUrl = self.quizAnswerUrl;
-        const quiz = {
-          id,
-          imageSrc,
-          answerUrl
-        };
         // クイズリスト更新
-        self.quizs.push(quiz);
-
-        // S3に画像バックアップをアップロード
-        const imageFile = self.quizImage;
-        const imageFileName = id;
-        const imageFileType = imageFile.type;
-        self.s3.putObject({
-          Key: imageFileName,
-          ContentType: imageFileType,
-          Body: imageFile,
-          ACL: 'public-read'
-        }, function(err, data) {
-          if (err) { alert('画像保存失敗 : ' + err); }
-        });
-
-        // S3に更新版クイズリストをアップロード
-        const jsonFile = JSON.stringify(self.quizs);
-        const jsonFileName = self.quizJsonFileName;
-        const jsonFileType = 'application/json';
-        self.s3.putObject({
-          Key: jsonFileName,
-          ContentType: jsonFileType,
-          Body: jsonFile,
-          ACL: 'public-read'
-        }, function(err, data){
-          if (err) { alert('クイズリスト更新失敗 : ' + err); }
+        self.quizs.push({
+          id,
+          imageSrc: reader.result,
+          answerUrl
         });
 
         // 一時データを初期化
@@ -150,7 +164,8 @@ export default {
         if (err) { alert('クイズリスト取得失敗 : ' + err); }
         if (data) {
           const json = JSON.parse(data.Body.toString());
-          self.quizs = json;
+          self.quizsS3 = json;
+          self.quizs = json.slice();
         }
       });
     }
@@ -169,7 +184,6 @@ export default {
     color: #555;
   }
   .list {
-    padding: 20px 0;
     .quiz {
       display: inline-block;
       vertical-align: top;
@@ -194,8 +208,8 @@ export default {
       box-sizing: border-box;
     }
     .btn-add-quiz {
-      padding: 16px;
-      margin-top: 20px;
+      padding: 12px 16px;
+      margin-top: 32px;
       font-size: 14px;
       color: #555;
       background-color: #ddddff;

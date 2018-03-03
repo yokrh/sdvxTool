@@ -1,6 +1,6 @@
 <template>
   <nav class="app-header">
-    <el-menu :default-active="activeIndex1" mode="horizontal">
+    <el-menu :default-active="activeIndex" mode="horizontal">
       <el-menu-item index="1">
         <router-link to="/">
           <span class="icon-search"></span>Search
@@ -36,6 +36,13 @@ import MenuItem from '../../node_modules/element-ui/lib/menu-item'
 Vue.use(Menu);
 Vue.use(Submenu);
 Vue.use(MenuItem);
+export default {
+  data() {
+    return {
+      activeIndex: '1'
+    };
+  }
+}
 </script>
 
 <style scoped>
@@ -106,6 +113,9 @@ Vue.use(MenuItem);
   .el-submenu .el-menu .el-menu-item {
     width: 100%;
     margin: 0;
+  }
+  .el-menu, .el-menu--horizontal .el-menu-item:focus, .el-menu--horizontal .el-menu-item:hover {
+    background-color: #fcf8ff;
   }
 }
 </style>

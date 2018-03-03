@@ -4,10 +4,11 @@
   "description": "sdvxtool",
   "main": "index.js",
   "scripts": {
-    "build": "webpack",
+    "build": "rm -rf ./dist/ && webpack",
     "analyze": "webpack --json | webpack-bundle-size-analyzer",
     "start": "webpack-dev-server",
-    "devall": "rm -rf dist/ && webpack && cd ./bin/s3/dev/ && sh ./all.sh"
+    "devall": "rm -rf ./dist/ && webpack && cd ./bin/s3/dev/ && sh ./all.sh",
+    "produp": "cd ./bin/s3/prod && sh ./all.sh"
   },
   "author": "yoshitake-okada",
   "repository": "",
@@ -26,6 +27,7 @@
     "postcss-assets": "^5.0.0",
     "postcss-loader": "^2.0.6",
     "postcss-nested": "^2.1.2",
+    "puppeteer": "^1.1.1",
     "uglifyjs-webpack-plugin": "^1.1.2",
     "vue-loader": "^13.3.0",
     "vue-template-compiler": "^2.5.2",

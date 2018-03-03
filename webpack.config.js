@@ -22,7 +22,7 @@ module.exports = {
   },
   externals: {
     'aws-sdk': 'AWS'
-  },  
+  },
   module: {
     loaders: [
       {
@@ -41,6 +41,25 @@ module.exports = {
         test: /\.js$/,
         exclude: [/node_modules/],
         loader: 'babel-loader'
+      },
+      {
+        test: /serviceworker\.js$/,
+        use: [
+          {
+            loader: 'babel-loader'
+          },
+          {
+            loader: 'file-loader?name=[name].[ext]'
+          }
+        ]
+      },
+      {
+        test: /manifest\.json/,
+        loader: 'file-loader?name=[name].[ext]'
+      },
+      {
+        test: /favicon\.ico/,
+        loader: 'file-loader?name=[name].[ext]'
       },
       {
         test: /\.css$/,

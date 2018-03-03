@@ -4,7 +4,7 @@
       <dl class="levels">
         <dt class="title">LEVEL</dt>
         <dd class="level" v-for="level in levels">
-          <label><input type="radio" name="level" :value="level" v-model="selectedLevel" @change="fetchTracks">{{level}}</label>
+          <label><input type="radio" name="level" :value="level" v-model="selectedLevel" @change="updateTracks(level)">{{level}}</label>
         </dd>
       </dl>
       <dl class="difficulties">
@@ -13,12 +13,13 @@
           <label><input type="checkbox" name="hard" :value="difficulty" v-model="selectedDifficulties"  @change="filterTracks">{{difficulty}}</label>
         </dd>
       </dl>
+      <input class="artist-name-input" type="text" placeholder="アーティスト" v-model="inputArtistName" @keyup="filterTracks" @change="filterTracks" />
       <input class="track-name-input" type="text" placeholder="曲名" v-model="inputTrackName" @keyup="filterTracks" @change="filterTracks" />
     </form>
 
     <ul class="tracks">
       <template v-if="tracks.length > 0">
-        <li class="track" v-for="track in tracks.slice(0, 10)">
+        <li class="track" v-for="track in tracks">
           <a :href="'http://www.sdvx.in' + track.path + '.htm'" target="_blank">{{track.name + ' [' + track.difficulty + ']'}}</a>
         </li>
       </template>
@@ -49,12 +50,18 @@ export default {
 
 <style scoped>
   .track-search-form {
-    .levels {
-      padding: 8px 2%;
+    .levels, .difficulties {
+      padding: 4px 2%;
+      background-color: #fcf8ff;
+      margin-bottom: 8px;
       .title {
-        padding: 8px 0;
+        padding: 8px 4px;
         font-size: 12px;
+        font-weight: bold;
+        color: #555;
       }
+    }
+    .levels {
       .level {
         display: inline-block;
         padding-left: 8%;
@@ -65,11 +72,6 @@ export default {
       }
     }
     .difficulties {
-      padding: 4px 2%;
-      .title {
-        padding: 8px 0;
-        font-size: 12px;
-      }
       .difficulty {
         display: inline-block;
         padding-left: 3%;
@@ -79,15 +81,15 @@ export default {
         font-size: 12px;
       }
     }
-    .track-name-input {
-      margin-top: 16px;
+    .track-name-input, .artist-name-input {
+      margin-top: 8px;
       padding: 4px 3%;
       width: 94%;
       height: 40px;
       line-height: 40px;
       font-size: 16px;
-      border: 1px solid #bebebe;
-      border-radius: 2px;
+      border: none;
+      border-bottom: 1px solid #bebebe;
     }
   }
   .tracks {
