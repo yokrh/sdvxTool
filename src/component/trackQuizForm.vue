@@ -4,7 +4,7 @@
       <dl class="levels">
         <dt class="title">LEVEL</dt>
         <dd class="level" v-for="level in levels">
-          <label><input type="radio" name="level" :value="level" v-model="selectedLevel" @change="fetchTracks">{{level}}</label>
+          <label><input type="radio" name="level" :value="level" v-model="selectedLevel" @change="updateTracks(level)">{{level}}</label>
         </dd>
       </dl>
       <dl class="difficulties">
