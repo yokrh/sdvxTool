@@ -48,8 +48,10 @@ const puppeteer = require('puppeteer');
   
     const datas = domDatas.map((d) => {
       const res = d;
-      const name = d.title;
+      let name = d.title;
       const artist = d.artist;
+      // 譜面サイトと公式サイトの差異を吸収
+      name = name.replace('(EXIT TUNES)', '');
       // console.log(name, ', ', artist);
       return { name, artist };
     });
