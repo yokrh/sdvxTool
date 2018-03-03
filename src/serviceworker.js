@@ -1,5 +1,5 @@
 // configuration
-const version = '1.0.3';
+const version = '1.0.4';
 const CACHE = version + '::sdvxYokrhPWA';
 const installFilesEssential = [
   '/',
