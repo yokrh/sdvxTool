@@ -13,8 +13,8 @@
           <label><input type="checkbox" name="hard" :value="difficulty" v-model="selectedDifficulties"  @change="filterTracks">{{difficulty}}</label>
         </dd>
       </dl>
-      <input class="artist-name-input" type="text" placeholder="アーティスト" v-model="inputArtistName" @keyup="filterTracks" @change="filterTracks" />
-      <input class="track-name-input" type="text" placeholder="曲名" v-model="inputTrackName" @keyup="filterTracks" @change="filterTracks" />
+      <input class="artist-name-input" type="text" placeholder="アーティスト" v-model="inputArtistName" @keyup="filterTracks" @change="filterTracks" @keyup.enter="onSubmit" />
+      <input class="track-name-input" type="text" placeholder="曲名" v-model="inputTrackName" @keyup="filterTracks" @change="filterTracks" @keyup.enter="onSubmit" />
     </form>
 
     <ul class="tracks">
@@ -41,7 +41,6 @@ export default {
   methods: {
     // 検索時処理
     onSubmit() {
-      window.scrollTo(0, 500);
       document.activeElement.blur();
     }
   }
