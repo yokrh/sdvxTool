@@ -1,5 +1,6 @@
 /node_modules
 /dist
+/bin/track_update/data/
 /sub
 *.log
 *.out

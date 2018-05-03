@@ -4,7 +4,7 @@
       <dl class="levels">
         <dt class="title">LEVEL</dt>
         <dd class="level" v-for="level in levels">
-          <label><input type="radio" name="level" :value="level" v-model="selectedLevel" @change="fetchTracks">{{level}}</label>
+          <label><input type="radio" name="level" :value="level" v-model="selectedLevel" @change="updateTracks(level)">{{level}}</label>
         </dd>
       </dl>
       <dl class="difficulties">
@@ -45,12 +45,16 @@ export default {
 
 <style scoped>
   .track-quiz-form {
-    .levels {
-      padding: 8px 2%;
+    .levels, .difficulties {
+      padding: 4px 2%;
       .title {
         padding: 8px 0;
         font-size: 12px;
+        font-weight: bold;
+        color: #555;
       }
+    }
+    .levels {
       .level {
         display: inline-block;
         padding-left: 8%;
@@ -61,11 +65,6 @@ export default {
       }
     }
     .difficulties {
-      padding: 4px 2%;
-      .title {
-        padding: 8px 0;
-        font-size: 12px;
-      }
       .difficulty {
         display: inline-block;
         padding-left: 3%;
@@ -82,14 +81,14 @@ export default {
       height: 42px;
       line-height: 42px;
       font-size: 14px;
-      color: #888;
-      border: 1px solid #bebebe;
+      color: #666;
+      border: 1px solid #aaa;
       border-radius: 2px;
       box-sizing: border-box;
     }
   }
   .tracks {
-    padding-top: 16px;
+    padding-bottom: 16px;
     .track {
       padding: 8px 4%;
       font-size: 12px;
