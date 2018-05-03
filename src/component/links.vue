@@ -14,10 +14,10 @@
       <a href="http://www.sdvx.in/" target="_blank">SDVX譜面保管所IV</a><span class="special">★ Ultimate Special Thanks</span>
     </dd>
     <dd class="link">
-      <a href="https://p.eagate.573.jp/game/bemani/hinabita/p/bittersweets/bio/index.html" target="_blank">日向美ビタースイーツ♪ | ひなビタ♪</a>
+      <a href="https://hbfb.herokuapp.com/" target="_blank">ひなビタ♪BIOGRAPHY検索（旧/β）</a>
     </dd>
     <dd class="link">
-      <a href="https://hbfb.herokuapp.com/" target="_blank">ひなビタ♪BIOGRAPHY検索（β）</a>
+      <a href="https://hinabita.yokrh.com/" target="_blank">ひなビタ♪BIOGRAPHY保管屋</a>
     </dd>
   </dl>
 </template>
