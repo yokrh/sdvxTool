@@ -9,7 +9,7 @@ const puppeteer = require('puppeteer');
   const page = await browser.newPage();
   await page.setCookie({
     'name': 'M573SSID',
-    'value': '08b8faad-a0c8-4ab0-935f-a18428ad70a1',
+    'value': '0b7fe746-49f0-472c-8ad8-60b063249fa0',
     'domain': 'p.eagate.573.jp'
   });
   
