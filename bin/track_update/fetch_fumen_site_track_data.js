@@ -50,19 +50,19 @@ const puppeteer = require('puppeteer');
     const datas = domDatas.map((d) => {
       const name = d.title.replace('&amp;', '&');
       const path = d.path;
-      //console.log(name,path);
+      console.log(name,path);
       const ver = path.split('/')[1];
       const id = path.split('/')[2];
       const difficulty = difficultyMap[id[id.length-1]];
       return { ver, name, level, difficulty, path, id };
     });
-    //console.log(datas.length);
+    console.log(datas.length);
   
     const trackData = {};
     datas.map(d => trackData[d.id] = d);
   
     const json = JSON.stringify(trackData);
-    fs.writeFile('./data/' + level + '.json', json);
+    fs.writeFile('./data/' + level + '.json', json, () => {});
   }
 
   await page.close();
