@@ -9,7 +9,7 @@
     "start": "webpack-dev-server",
     "devall": "rm -rf ./dist/ && webpack && cd ./bin/s3/dev/ && sh ./all.sh",
     "produp": "cd ./bin/s3/prod && sh ./all.sh",
-    "update": "echo 'nvm use v8.4.0' && cd ./bin/track_update/ && node fetch_fumen_site_track_data.js && cd ../s3/prod/ && sh up_to_s3_data_json.sh",
+    "update": "echo 'nvm use v8.4.0' && cd ./bin/track_update/ && mkdir -p data/ && node fetch_fumen_site_track_data.js && cd ../s3/prod/ && sh up_to_s3_data_json.sh",
     "update2": "echo '[has changed Cookie???]' && echo 'nvm use v8.4.0' && cd ./bin/track_update/ && node fetch_official_track_data.js && cd ../s3/prod/ && sh up_to_s3_data_json.sh"
   },
   "author": "yoshitake-okada",
