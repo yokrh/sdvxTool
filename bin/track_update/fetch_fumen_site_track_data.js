@@ -1,8 +1,7 @@
 /**
- * Use it after AWS lambda support node 8. (only node 6 (2018/02))
+ * Run on local.
+ * It cannot be run on AWS lambda because of its size limit. (puppeteer is large)
  */
-
-'use strict';
 
 const fs = require("fs");
 const puppeteer = require('puppeteer');
@@ -26,27 +25,27 @@ const puppeteer = require('puppeteer');
     await page.goto(url);
     //await page.screenshot({path: 'hoge.png', fullPage: true});
     //await page.content().then( content => console.log("content : ", content) );
-  
+
     const domDatas = await page.evaluate(() => {
       const res = [];
       const es = document.querySelectorAll('.f1');
       for (const e of es) {
         const title = e.innerHTML.replace('<div class="b2">', '').replace('</div>', '');
         if (!title) continue;  // noise
-  
+
         const td = e.parentNode;
         const tr = td.parentNode;
         if (!tr.children || tr.children.length < 2) continue; // noise
         const innerHtml = tr.children[1].innerHTML;
         if (!innerHtml.match('href="(.*).htm"')) continue;  // noise
         const path = innerHtml.match('href="(.*).htm"')[1];
-  
+
         res.push({ title, path });
       }
       return res;
     });
-  
-    const difficultyMap = {'n': 'NOV', 'a': 'ADV', 'e': 'EXH', 'i': 'INF', 'g': 'GRV', 'h': 'HVN', 'm': 'MXM'};
+
+    const difficultyMap = {'n': 'NOV', 'a': 'ADV', 'e': 'EXH', 'i': 'INF', 'g': 'GRV', 'h': 'HVN', 'm': 'MXM', 'v': 'VVD'};
     const datas = domDatas.map((d) => {
       const name = d.title.replace('&amp;', '&');
       const path = d.path;
@@ -57,10 +56,10 @@ const puppeteer = require('puppeteer');
       return { ver, name, level, difficulty, path, id };
     });
     console.log(datas.length);
-  
+
     const trackData = {};
     datas.map(d => trackData[d.id] = d);
-  
+
     const json = JSON.stringify(trackData);
     fs.writeFile('./data/' + level + '.json', json, () => {});
   }
