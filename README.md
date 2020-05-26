@@ -1,6 +1,20 @@
 # SDVX fumen tool
 
-## Prerequisite
+ボルテの譜面検索をしやすくしたくて作ったもの
+
+
+## Thanks
+
+* https://p.eagate.573.jp/game/sdvx/v/p/top/
+
+* https://www.sdvx.in/
+
+
+## dev memo
+
+### How to Update
+
+#### Prerequisite
 
 * Node.js (recommended: ver 10.x)
 * AWS cli (resommended: ver 2)
@@ -18,11 +32,22 @@ aws2 --version
 aws2 configure
 ```
 
+#### Update data
 
-## Update data
-
-See package.json.
+See package.json for detail.
 
 ```sh
 npm run update
+```
+
+#### Update javascript bundle file
+
+```sh
+sh bin/s3/prod/up_to_s3_js.sh
+```
+
+#### Update service worker
+
+```sh
+sh bin/s3/prod/up_to_s3_sw.sh
 ```
