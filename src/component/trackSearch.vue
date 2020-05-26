@@ -1,6 +1,6 @@
 <template>
   <div class="track-search">
-    <span class="last-updated">Last updated: 2020/02/24</span>
+    <span class="last-updated">Last updated: 2020/5/26</span>
     <h1 class="page-title">SDVX譜面検索</h1>
     <track-search-form></track-search-form>
   </div>
